@@ -26,11 +26,11 @@ var FFT_SIZE = 64;
 var audioContext = null;
 var analyser = null;
 var buffer = null;
-var outDiv, bufferLength;
+var out, bufferLength;
 
 window.onload = function() {
     audioContext = new AudioContext();
-    outDiv = document.getElementById("out");
+    out = document.getElementById("out");
     navigator.getUserMedia({ "audio" : true}, successCallback,
             errorCallback);
 };
@@ -52,7 +52,7 @@ var errorCallback = function(errorCode) {
 // Draw frequency histogram (vertically, as lines with dashes).
 var outputAnimation = function() {
     analyser.getByteFrequencyData(buffer);
-    outDiv.innerHTML = "";
+    out.innerHTML = "";
     
     for (var i = 0; i < bufferLength; i++) {
         var s = "";
@@ -60,7 +60,7 @@ var outputAnimation = function() {
         for (var j = 0; j < buffer[i] / 4; j++)
             s += "-";
         
-        outDiv.innerHTML += s + "<br />";
+        out.innerHTML += s + "<br />";
     }
     
     window.requestAnimationFrame(outputAnimation);
